@@ -13,17 +13,7 @@ export default class formValidation extends Component {
                     <div className>
                         <div className="page-title">
                             <div className="title_left">
-                                <h3>Form Validation</h3>
-                            </div>
-                            <div className="title_right">
-                                <div className="col-md-5 col-sm-5 form-group pull-right top_search">
-                                    <div className="input-group">
-                                        <input type="text" className="form-control" placeholder="Search for..."/>
-                                        <span className="input-group-btn">
-                                            <button className="btn btn-default" type="button">Go!</button>
-                                        </span>
-                                    </div>
-                                </div>
+                                <h3>Pagina de Cadastro</h3>
                             </div>
                         </div>
                         <div className="clearfix"/>
@@ -31,39 +21,19 @@ export default class formValidation extends Component {
                             <div className="col-md-12 col-sm-12">
                                 <div className="x_panel">
                                     <div className="x_title">
-                                        <h2>Form validation
-                                            <small>sub title</small>
+                                        <h2>Pagina de cadastro:
+                                            <small>Produto</small>
                                         </h2>
                                         <ul className="nav navbar-right panel_toolbox">
                                             <li>
                                                 <a className="collapse-link"><i className="fa fa-chevron-up"/></a>
-                                            </li>
-                                            <li className="dropdown">
-                                                <a
-                                                    href="#"
-                                                    className="dropdown-toggle"
-                                                    data-toggle="dropdown"
-                                                    role="button"
-                                                    aria-expanded="false"><i className="fa fa-wrench"/></a>
-                                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <a className="dropdown-item" href="#">Settings 1</a>
-                                                    <a className="dropdown-item" href="#">Settings 2</a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <a className="close-link"><i className="fa fa-close"/></a>
                                             </li>
                                         </ul>
                                         <div className="clearfix"/>
                                     </div>
                                     <div className="x_content">
                                         <form className="form-horizontal form-label-left" noValidate>
-                                            <p>For alternative validation library
-                                                <code>parsleyJS</code>
-                                                check out in the
-                                                <a href="form.html">form page</a>
-                                            </p>
-                                            <span className="section">Personal Info</span>
+                                            <span className="section">Complete o form para cadastrar um Produto</span>
                                             <div className="item form-group">
                                                 <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="name">Name
                                                     <span className="required">*</span>
@@ -225,7 +195,6 @@ export default class formValidation extends Component {
                         </div>
                     </div>
                 </div>
-
             </div>
         )
     }

@@ -1,5 +1,4 @@
 import React,{Component} from "react"
-import Navigation from "./app/Navigation"
 import PageContent from "./app/PageContent"
 import Footer from "./app/Footer"
 import Sidemenu from "./app/Sidemenu"
@@ -14,7 +13,6 @@ export default class App extends Component{
           <div className="col-md-3 left_col">
             <Sidemenu/>
           </div>
-          <Navigation></Navigation>
           <PageContent></PageContent>
           <Footer></Footer>
         </div>

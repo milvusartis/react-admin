@@ -6,7 +6,7 @@ const Footer = () => {
           {/* footer content */}
           <footer>
             <div className="pull-right">
-              Free Bootstrap Admin Template For React 
+              Admin Page for Milvus Artis
             </div>
             <div className="clearfix" />
           </footer>
