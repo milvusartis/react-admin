@@ -142,7 +142,10 @@ export default class Sidemenu extends Component {
                     <span className="fa fa-chevron-down"/></a>
                   <ul className="nav child_menu">
                     <li>
-                      <a href="/formValidation">Cadastrar Produto</a>
+                      <a href="/cadastraproduto">Cadastrar Produto</a>
+                    </li>
+                    <li>
+                      <a href="/pedidos">Aprovar Pedidos</a>
                     </li>
                   </ul>
                 </li>
