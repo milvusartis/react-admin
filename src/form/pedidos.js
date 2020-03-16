@@ -4,16 +4,30 @@ import '../plugins/style.css'
 
 
 export default class formValidation extends Component {
-    gerarForm =()=>{
+    state={
+        json:[],
+    }
+    gerarForm=async()=>{
+        
+    }
+    buscar=()=>{
+        const api = axios.create({baseURL: "http://localhost:8080/api/ecommerce"})
+        let resposta
+        api.get("/pedidos").
+        then(res=>
+          {this.state.setState({json:res})}
+        )
+        .catch(err=>console.log(err.data))
+        console.log(this.state.json)
         let guarda=[]
         let i=0
-        for(i;i<4;i++){
+        for(i;i<=1;i++){
             guarda.push
             (
                 <div className="col-md-12 col-sm-12">
                     <div className="x_panel">
                         <div className="x_title">
-                            <h2>Pedido nº:nrpedido{i}</h2>
+                            <h2>Pedido nº:{resposta}</h2>
                                 <ul className="nav navbar-right panel_toolbox">
                                     <li>
                                         <a className="collapse-link"><i className="fa fa-chevron-up"/></a>
@@ -26,11 +40,11 @@ export default class formValidation extends Component {
                                 <span className="section">Dados do pedido:</span>
                                 <div className="item form-group">
                                     <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="nPedido">Numero do Pedido:</label>
-                                    <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="nPedido">nrpedido{i}</label>
+                                    <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="nPedido">nrpedido</label>
                                 </div>
                                 <div className="item form-group">
                                     <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="idCliente">Codigo do Cliente:</label>
-                                    <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="idCliente">idCliente{i}</label>
+                                    <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="idCliente">idCliente</label>
                                 </div>
                                 <div className="ln_solid"/>
                                 <div className="form-group ">
@@ -45,6 +59,7 @@ export default class formValidation extends Component {
             )
         }
         return guarda;
+        
     }
     // salvar = async (event) =>{
     //     let nome=event.target.nome.value
@@ -70,7 +85,9 @@ export default class formValidation extends Component {
     // }
     render() {
         return (
+            
             <div>
+                
                 <div
                     className="right_col"
                     role="main"
@@ -86,7 +103,7 @@ export default class formValidation extends Component {
                         <div className="clearfix"/>
                         <div className="row">
                             {/*Inicio do form*/}
-                            {this.gerarForm()}
+                            {this.buscar()}
                             {/*Fim do form*/}
                         </div>
                     </div>

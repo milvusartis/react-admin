@@ -12,6 +12,7 @@ export default class formValidation extends Component {
         let valorUnitario=event.target.vlProduto.value
         let disponibilidade=event.target.disponibilidade.value
         let codigo=event.target.Categoria.value
+        let estoque=event.target.quantidade.value
         event.preventDefault();
         await 1;
         console.log(valorUnitario)
@@ -24,7 +25,9 @@ export default class formValidation extends Component {
             disponibilidade:disponibilidade,
             categoria:{
                 codigo:codigo
-            }
+            },
+            qtd_estoque:estoque,
+            qtd_reservada:0
         }).then(res => console.log(res.data)).catch(err => console.log(err.data))
     }
     render() {
@@ -119,7 +122,7 @@ export default class formValidation extends Component {
                                                         className="form-control"/>
                                                 </div>
                                             </div>
-                                            <div className="item form-group">
+                                            <div className="item form-group mb-3">
                                                 <label
                                                     className="col-form-label col-md-3 col-sm-3 label-align"
                                                     htmlFor="website">Categoria
@@ -153,6 +156,20 @@ export default class formValidation extends Component {
                                                             id="indisponivel" value="false"/>
                                                         <label className="form-check-label" htmlFor="indisponivel">Indisponivel</label>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div className="item form-group">
+                                                <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="quantidade">Quantidade
+                                                    <span className="required">*</span>
+                                                </label>
+                                                <div className="col-md-6 col-sm-6">
+                                                    <input
+                                                        type="number"
+                                                        id="quantidade"
+                                                        name="quantidade"
+                                                        placeholder="Estoque inicial do produto"
+                                                        required="required"
+                                                        className="form-control"/>
                                                 </div>
                                             </div>
                                             <div className="ln_solid"/>
