@@ -126,7 +126,7 @@ export default class Sidemenu extends Component {
           <div className="navbar nav_title" style={{
             border: 0
           }}>
-            <a href="/" className="site_title"><i className="fa fa-paw"/>
+            <a href="/" className="site_title">
               <span>Milvus Admin!</span>
             </a>
           </div>
@@ -144,9 +144,9 @@ export default class Sidemenu extends Component {
                     <li>
                       <a href="/cadastraproduto">Cadastrar Produto</a>
                     </li>
-                    <li>
+                    {/* <li>
                       <a href="/pedidos">Aprovar Pedidos</a>
-                    </li>
+                    </li> */}
                   </ul>
                 </li>
               </ul>

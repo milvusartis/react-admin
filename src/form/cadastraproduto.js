@@ -13,7 +13,6 @@ export default class formValidation extends Component {
         let disponibilidade=event.target.disponibilidade.value
         let codigo=event.target.Categoria.value
         let estoque=event.target.quantidade.value
-        event.preventDefault();
         await 1;
         console.log(valorUnitario)
         const api = axios.create({baseURL: "http://localhost:8080/api/ecommerce"})
