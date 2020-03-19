@@ -6,6 +6,7 @@ import '../plugins/style.css'
 export default class formValidation extends Component {
     
     salvar = async (event) =>{
+        event.preventDefault()
         let nome=event.target.nome.value
         let descricao=event.target.descricao.value
         let imagem=event.target.imagem.value
@@ -14,20 +15,22 @@ export default class formValidation extends Component {
         let codigo=event.target.Categoria.value
         let estoque=event.target.quantidade.value
         await 1;
-        console.log(valorUnitario)
         const api = axios.create({baseURL: "http://localhost:8080/api/ecommerce"})
         api.post("/produto",{
             nome:nome,
             descricao:descricao,
             imagem:imagem,
-            valor:valorUnitario,
+            valorUnitario:valorUnitario,
             disponibilidade:disponibilidade,
             categoria:{
-                codigo:codigo
+                id:codigo
             },
-            qtd_estoque:estoque,
-            qtd_reservada:0
+            estoque:{
+                quantidadeEstoque:estoque,
+                quantidadeReservada:0
+            },
         }).then(res => console.log(res.data)).catch(err => console.log(err.data))
+        
     }
     render() {
         return (
