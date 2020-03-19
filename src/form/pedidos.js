@@ -2,92 +2,75 @@ import React, {Component} from 'react'
 import axios from "axios";
 import '../plugins/style.css'
 
-
+const a={
+    valor:{}
+}
 export default class formValidation extends Component {
     state={
-        json:[],
+            valor:{},
+            guarda:[]
+        }
+    teste(event){
+        event.preventDefault();
+        Object.keys(a.valor).map((item)=>{
+            if(event.target.name==a.valor[item].nrPedido){
+                console.log(a.valor[item].idPedido)
+            }
+        })
     }
-    gerarForm=async()=>{
-        
-    }
-    buscar=()=>{
+    async buscar(){
         const api = axios.create({baseURL: "http://localhost:8080/api/ecommerce"})
-        let resposta
-        api.get("/pedidos").
-        then(res=>
-          {this.state.setState({json:res})}
-        )
-        .catch(err=>console.log(err.data))
-        console.log(this.state.json)
+        await api.get("/pedidos").then((res)=>{this.setState({valor:res.data.body})})
+        a.valor = this.state.valor
+        console.log(this.state.valor)
         let guarda=[]
-        let i=0
-        for(i;i<=1;i++){
-            guarda.push
-            (
-                <div className="col-md-12 col-sm-12">
-                    <div className="x_panel">
-                        <div className="x_title">
-                            <h2>Pedido nº:{resposta}</h2>
-                                <ul className="nav navbar-right panel_toolbox">
-                                    <li>
-                                        <a className="collapse-link"><i className="fa fa-chevron-up"/></a>
-                                    </li>
-                                </ul>
-                            <div className="clearfix"/>
-                        </div>
-                        <div className="x_content">
-                            <form className="form-horizontal form-label-left" noValidate /*onSubmit={this.salvar}*/>
-                                <span className="section">Dados do pedido:</span>
-                                <div className="item form-group">
+        Object.keys(this.state.valor).map((item)=>{
+            if(this.state.valor[item].dsStatusPedido=="false"){
+                guarda.push(
+                    <div className="col-md-12 col-sm-12">
+                        <div className="x_panel">
+                            <div className="x_title">
+                                <h2>Pedido nº: </h2>
+                                    <ul className="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a className="collapse-link"><i className="fa fa-chevron-up"/></a>
+                                        </li>
+                                    </ul>
+                                <div className="clearfix"/>
+                            </div>
+                            <div className="x_content">
+                                <form className="form-horizontal form-label-left" noValidate onSubmit={this.teste} name={this.state.valor[item].nrPedido}>
+                                    <span className="section">Dados do pedido:</span>
+                                    <div className="item form-group">
                                     <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="nPedido">Numero do Pedido:</label>
-                                    <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="nPedido">nrpedido</label>
-                                </div>
-                                <div className="item form-group">
-                                    <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="idCliente">Codigo do Cliente:</label>
-                                    <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="idCliente">idCliente</label>
-                                </div>
-                                <div className="ln_solid"/>
-                                <div className="form-group ">
-                                    <div className="col-md-6 offset-md-3 mt-3">
-                                        <button id="send" type="submit" className="btn btn-success">Aprovar</button>
+                                    <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="nrPedido" >{this.state.valor[item].nrPedido}</label>
                                     </div>
-                                </div>
-                            </form>
+                                    <div className="item form-group">
+                                        <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="id">Codigo do Cliente:</label>
+                                        <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="idCliente">{this.state.valor[item].idPedido}</label>
+                                    </div>
+                                    <div className="ln_solid"/>
+                                    <div className="form-group ">
+                                        <div className="col-md-6 offset-md-3 mt-3">
+                                            <button id="send" type="submit" className="btn btn-success">Aprovar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )
+                )
+            }
+            
+        })
+           this.setState({guarda:[...this.state.guarda,guarda]})
         }
-        return guarda;
-        
-    }
-    // salvar = async (event) =>{
-    //     let nome=event.target.nome.value
-    //     let descricao=event.target.descricao.value
-    //     let imagem=event.target.imagem.value
-    //     let valorUnitario=event.target.vlProduto.value
-    //     let disponibilidade=event.target.disponibilidade.value
-    //     let codigo=event.target.Categoria.value
-    //     event.preventDefault();
-    //     await 1;
-    //     console.log(valorUnitario)
-    //     const api = axios.create({baseURL: "http://localhost:8080/api/ecommerce"})
-    //     api.post("/produto",{
-    //         nome:nome,
-    //         descricao:descricao,
-    //         imagem:imagem,
-    //         valor:valorUnitario,
-    //         disponibilidade:disponibilidade,
-    //         categoria:{
-    //             codigo:codigo
-    //         }
-    //     }).then(res => console.log(res.data)).catch(err => console.log(err.data))
-    // }
+        componentDidMount(){
+            {this.buscar()}
+        }
     render() {
         return (
-            
             <div>
-                
                 <div
                     className="right_col"
                     role="main"
@@ -102,9 +85,7 @@ export default class formValidation extends Component {
                         </div>
                         <div className="clearfix"/>
                         <div className="row">
-                            {/*Inicio do form*/}
-                            {this.buscar()}
-                            {/*Fim do form*/}
+                            {this.state.guarda}
                         </div>
                     </div>
                 </div>

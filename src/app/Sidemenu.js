@@ -144,9 +144,9 @@ export default class Sidemenu extends Component {
                     <li>
                       <a href="/cadastraproduto">Cadastrar Produto</a>
                     </li>
-                    {/* <li>
+                    <li>
                       <a href="/pedidos">Aprovar Pedidos</a>
-                    </li> */}
+                    </li>
                   </ul>
                 </li>
               </ul>
