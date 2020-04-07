@@ -2,4 +2,7 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+  display: flex;
+  justify-content: center;
+  position: absolute;
 }
