@@ -2,27 +2,14 @@ import React, {Component} from 'react'
 import axios from "axios";
 import '../plugins/style.css'
 
-const a={
-    valor:{}
-}
 export default class formValidation extends Component {
     state={
             valor:{},
             guarda:[]
         }
-    teste(event){
-        event.preventDefault();
-        Object.keys(a.valor).map((item)=>{
-            if(event.target.name==a.valor[item].nrPedido){
-                console.log(a.valor[item].idPedido)
-            }
-        })
-    }
     async buscar(){
         const api = axios.create({baseURL: "http://localhost:8080/api/ecommerce"})
         await api.get("/pedidos").then((res)=>{this.setState({valor:res.data.body})})
-        a.valor = this.state.valor
-        console.log(this.state.valor)
         let guarda=[]
         Object.keys(this.state.valor).map((item)=>{
             if(this.state.valor[item].dsStatusPedido=="false"){
@@ -39,7 +26,7 @@ export default class formValidation extends Component {
                                 <div className="clearfix"/>
                             </div>
                             <div className="x_content">
-                                <form className="form-horizontal form-label-left" noValidate onSubmit={this.teste} name={this.state.valor[item].nrPedido}>
+                                <form className="form-horizontal form-label-left" noValidate onSubmit={()=>{}} name={this.state.valor[item].nrPedido}>
                                     <span className="section">Dados do pedido:</span>
                                     <div className="item form-group">
                                     <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="nPedido">Numero do Pedido:</label>

@@ -1,34 +1,26 @@
 import React, {Component} from 'react'
 import axios from "axios";
+import api from "../service/api";
 import '../plugins/style.css'
 
 
 export default class formValidation extends Component {
-    
     salvar = async (event) =>{
         event.preventDefault()
         let nome=event.target.nome.value
         let descricao=event.target.descricao.value
         let imagem=event.target.imagem.value
         let valorUnitario=event.target.vlProduto.value
-        let disponibilidade=event.target.disponibilidade.value
         let codigo=event.target.Categoria.value
-        let estoque=event.target.quantidade.value
         await 1;
-        const api = axios.create({baseURL: "http://localhost:8080/api/ecommerce"})
-        api.post("/produto",{
+        api.post("/produtos",{
             nome:nome,
             descricao:descricao,
             imagem:imagem,
             valorUnitario:valorUnitario,
-            disponibilidade:disponibilidade,
             categoria:{
                 id:codigo
-            },
-            estoque:{
-                quantidadeEstoque:estoque,
-                quantidadeReservada:0
-            },
+            }
         }).then(res => console.log(res.data)).catch(err => console.log(err.data))
         
     }
@@ -139,39 +131,6 @@ export default class formValidation extends Component {
                                                     <option value="2">Lata</option>
                                                     <option value="3">Linha</option>
                                                 </select>
-                                                </div>
-                                            </div>
-                                            <div className="item form-group">
-                                                <label
-                                                    className="col-form-label col-md-3 col-sm-3 label-align"
-                                                    htmlFor="website">Disponibilidade
-                                                    <span className="required">*</span>
-                                                </label>
-                                                <div className="col-md-6 col-sm-6 d-flex justify-content-center">
-                                                    <div class="form-check col-6">
-                                                        <input className="form-check-input" type="radio" name="disponibilidade" 
-                                                            id="disponivel" value="true"/>
-                                                        <label className="form-check-label" htmlFor="disponivel">Disponivel</label>
-                                                    </div>
-                                                    <div className="form-check col-6">
-                                                        <input className="form-check-input" type="radio" name="disponibilidade" 
-                                                            id="indisponivel" value="false"/>
-                                                        <label className="form-check-label" htmlFor="indisponivel">Indisponivel</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="item form-group">
-                                                <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="quantidade">Quantidade
-                                                    <span className="required">*</span>
-                                                </label>
-                                                <div className="col-md-6 col-sm-6">
-                                                    <input
-                                                        type="number"
-                                                        id="quantidade"
-                                                        name="quantidade"
-                                                        placeholder="Estoque inicial do produto"
-                                                        required="required"
-                                                        className="form-control"/>
                                                 </div>
                                             </div>
                                             <div className="ln_solid"/>
