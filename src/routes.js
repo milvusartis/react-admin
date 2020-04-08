@@ -14,8 +14,8 @@ export default class Routes extends Component {
 <BrowserRouter>
         
         <Switch>
-            <PrivateRoute path="/cadastraproduto" exact component={CadastraProduto}/>
-            <PrivateRoute path="/pedidos" exact component={Pedidos}/>  
+            <PrivateRoute path="/cadastraproduto" component={CadastraProduto}/>
+            <PrivateRoute path="/pedidos" component={Pedidos}/>  
             <Route  exact path="/" component={Login}/>
         </Switch>
         

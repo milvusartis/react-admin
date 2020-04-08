@@ -1,5 +1,5 @@
 .logon-container{
-    width: 100%;
+    width: 80%;
     max-width: 1120px;
     margin: 0 auto;
     margin-top: 50px;
@@ -10,8 +10,9 @@
 }
 
 .logon-container .content {
-    width: 100%;
+    width: 80%;
     padding: 30px;
+    margin-left: 50px;
     background: #f0f0f5;
     box-shadow: 0 0 100px rgba(0, 0 ,0 , 0.1);
     border-radius: 8px;
@@ -22,12 +23,12 @@
 }
 
 .logon-container .content section{
-    width: 100%;
+    width: 80%;
     max-width: 380px;
 }
 
 .logon-container .content section h1 {
-    margin: 64px 0 32px;
+    margin: 60px 0 32px;
     font-size: 32px;
     color: #6C6C6C;
     text-align: center;
