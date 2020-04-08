@@ -3,9 +3,6 @@ import $ from "jquery"
 import debounce from 'react-debouncing';
 export default class Sidemenu extends Component {
 
-  constructor(props){
-    super(props);
-  }
   // Sidebar
   initSidebar = () => {
     const CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
@@ -89,7 +86,7 @@ export default class Sidemenu extends Component {
     $SIDEBAR_MENU
       .find('a')
       .filter(function () {
-        return this.href == CURRENT_URL;
+        return this.href === CURRENT_URL;
       })
       .parent('li')
       .addClass('current-page')
