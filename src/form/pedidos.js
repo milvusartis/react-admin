@@ -40,12 +40,12 @@ export default class formValidation extends Component {
                                 return(
                                     pedido.statusPedido === "PAGAMENTO_CONFIRMADO" && (
                                        <div className="col-md-12 col-sm-12" key={pedido.idPedido}>
-                                           <div className="x_panel" key={pedido.idPedido}>
+                                           <div className="x_panel">
                                                <div className="x_title">
-                                                   <h2>Pedido nº: {pedido.numero}</h2>
+                                                   <h2>Pedido nº: {pedido.idPedido}</h2>
                                                    <ul className="nav navbar-right panel_toolbox">
                                                        <li>
-                                                           <a className="collapse-link" key={pedido.idPedido}><i className="fa fa-chevron-down"/></a>
+                                                           <a className="collapse-link"><i className="fa fa-chevron-down"/></a>
                                                        </li>
                                                    </ul>
                                                    <div className="clearfix" />
@@ -55,7 +55,7 @@ export default class formValidation extends Component {
                                                        <span className="section">Dados do pedido:</span>
                                                        <div className="item form-group">
                                                            <label className="col-form-label col-md-3 col-sm-3 label-align">Numero do Pedido:</label>
-                                                           <label className="col-form-label col-md-3 col-sm-3 label-align" name="teste">{pedido.numero}</label>
+                                                           <label className="col-form-label col-md-3 col-sm-3 label-align" name="teste">{pedido.idPedido}</label>
                                                            <label className="col-form-label col-md-3 col-sm-3 label-align">Endereço de Entrega:</label>
                                                            <label className="col-form-label col-md-3 col-sm-3 label-align">{pedido.cliente.endereco.rua}</label>
                                                        </div>
