@@ -1,7 +1,13 @@
 import React, {Component} from 'react'
 import $ from "jquery"
 import debounce from 'react-debouncing';
+import './styles.css';
+import { Button } from 'reactstrap';
+
+
+
 export default class Sidemenu extends Component {
+  
 
   // Sidebar
   initSidebar = () => {
@@ -116,10 +122,19 @@ export default class Sidemenu extends Component {
     this.initSidebar();
   }
 
+  logout = () =>  {
+    sessionStorage.clear()
+    window.location.reload()
+    
+    
+  }
+
+
   render() {
     return (
-      <div>
-        <div className="left_col scroll-view">
+
+      <div id="topo" >
+        <div   className="left_col scroll-view">
           <div className="navbar nav_title" style={{
             border: 0
           }}>
@@ -143,6 +158,9 @@ export default class Sidemenu extends Component {
                     </li>
                     <li>
                       <a href="/pedidos">Aprovar Pedidos</a>
+                    </li>
+                    <li>
+                      <Button onClick={this.logout} color="danger" href="/">Sair</Button>
                     </li>
                   </ul>
                 </li>

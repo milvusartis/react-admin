@@ -1,16 +1,17 @@
 import React from 'react';
+import './styles.css';
 
 const Footer = () => {
     return (
         <div>
-          {/* footer content */}
-          <footer>
-            <div className="pull-right">
+          
+          <footer id="footer">
+            <div>
               Admin Page for Milvus Artis
             </div>
-            <div className="clearfix" />
+            <div />
           </footer>
-          {/* /footer content */}         
+          
         </div>
     );
 };
