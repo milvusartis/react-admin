@@ -40,17 +40,17 @@ export default class formValidation extends Component {
                                 return(
                                     pedido.statusPedido === "PAGAMENTO_CONFIRMADO" && (
                                        <div className="col-md-12 col-sm-12" key={pedido.idPedido}>
-                                           <div className="x_panel" >
+                                           <div className="x_panel" key={pedido.idPedido}>
                                                <div className="x_title">
                                                    <h2>Pedido nº: {pedido.numero}</h2>
                                                    <ul className="nav navbar-right panel_toolbox">
                                                        <li>
-                                                           <a className="collapse-link"><i className="fa fa-chevron-down" /></a>
+                                                           <a className="collapse-link" key={pedido.idPedido}><i className="fa fa-chevron-down"/></a>
                                                        </li>
                                                    </ul>
                                                    <div className="clearfix" />
                                                </div>
-                                               <div className="x_content">
+                                               <div className="x_content" key={pedido.idPedido}>
                                                    <form className="form-horizontal form-label-left" noValidate name="idPedido" defaultValue={pedido.idPedido} onSubmit={(event)=>{this.aprovarPedido(event,pedido)}}>
                                                        <span className="section">Dados do pedido:</span>
                                                        <div className="item form-group">
