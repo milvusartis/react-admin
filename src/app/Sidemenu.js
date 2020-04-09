@@ -163,6 +163,9 @@ export default class Sidemenu extends Component {
                       <a href="/pedidos">Aprovar Pedidos</a>
                     </li>
                     <li>
+                      <a href="/produtos">Exibir Produtos</a>
+                    </li>
+                    <li>
                       <Button onClick={this.logout} color="danger" href="/">Sair</Button>
                     </li>
                   </ul>
