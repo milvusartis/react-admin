@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
-import axios from "axios";
 import api from "../service/api";
 import '../plugins/style.css'
-
 
 export default class formValidation extends Component {
     salvar = async (event) =>{
@@ -49,7 +47,7 @@ export default class formValidation extends Component {
                                         </h2>
                                         <ul className="nav navbar-right panel_toolbox">
                                             <li>
-                                                <a className="collapse-link"><i className="fa fa-chevron-up"/></a>
+                                                <a className="collapse-link"><i className="fa fa-chevron-down"/></a>
                                             </li>
                                         </ul>
                                         <div className="clearfix"/>
