@@ -46,12 +46,11 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
-const HistoricoPedidosl = () => {
+
+const ListaDeNF = () => {
 
     const classes = useStyles();
-    const [pedidos, setPedidos] = useState([]);
-
-    const usuario = sessionStorage.getItem('usuario');
+    const [nf, setNF] = useState([]);
 
     const [expanded, setExpanded] = React.useState(false);
 
@@ -59,28 +58,11 @@ const HistoricoPedidosl = () => {
         setExpanded(isExpanded ? panel : false);
     };
 
-    const handlePedidoMensage = {
-        PAGAMENTO_CONFIRMADO: value => "Aprovar o Pedido",
-        PEDIDO_ENVIADO: value => "Confirmar a entrega do Pedido",
-    };
-
-    const showMenssage = (statusPedido, value) => {
-        const handler = handlePedidoMensage[statusPedido]
-        return handler(value);
-    };
-    const aprovarPedido = (pedido) => {
-        let idPedido = pedido
-        api.put("/pedidos/" + idPedido + "/aprovar")
-    }
-    const confirmarEntrega = (pedido) => {
-        let idPedido = pedido
-        api.put("/pedidos/" + idPedido + "/entregar")
-    }
-
     useEffect(() => {
-        api.get(`/pedidos`, {
+        api.get(`/notasfiscais`, {
         }).then(response => {
-            setPedidos(response.data);
+            console.log(response)
+            setNF(response.data);
         })
     }, []);
     return (
@@ -88,70 +70,89 @@ const HistoricoPedidosl = () => {
             <div className="pedido-container">
                 <div className="content">
                     <div className={classes.root}>
-                        {pedidos.map(pedido => (
-                            <ExpansionPanel key={pedido.idPedido} TransitionProps={{ unmountOnExit: true }} expanded={expanded === `panel${pedido.idPedido}`} onChange={handleChange(`panel${pedido.idPedido}`)}>
+                        {nf.map(nf => (
+                            <ExpansionPanel key={nf.idNotaFiscal} TransitionProps={{ unmountOnExit: true }} expanded={expanded === `panel${nf.idNotaFiscal}`} onChange={handleChange(`panel${nf.idNotaFiscal}`)}>
                                 <ExpansionPanelSummary
                                     expandIcon={<MdExpandMore />}
-                                    aria-controls={`panel${pedido.idPedido}c-content`}
-                                    id={`panel${pedido.idPedido}c-header`}>
+                                    aria-controls={`panel${nf.idNotaFiscal}c-content`}
+                                    id={`panel${nf.idNotaFiscal}c-header`}>
                                     <div className={classes.column}>
-                                        <Typography className={classes.heading}>Pedido: #{pedido.idPedido}</Typography>
-                                    </div>
-                                    <div className={classes.column}>
-                                        <Typography className={classes.secondaryHeading}>{showMenssage(pedido.statusPedido)}</Typography>
+                                        <Typography className={classes.heading}>Nota Fiscal Nº:{nf.idNotaFiscal}</Typography>
                                     </div>
                                 </ExpansionPanelSummary>
+                                {/* Dados da NF */}
                                 <ExpansionPanelDetails className={classes.details}>
-                                    <span className="col-12 section">Dados do pedido:</span>
+                                    <span className="col-12 section">Dados da Nota Fiscal:</span>
                                 </ExpansionPanelDetails>
                                 <ExpansionPanelDetails className={classes.details}>
                                     <form className="form-horizontal form-label-left" noValidate>
                                         <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Numero do Pedido:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="teste">{pedido.idPedido}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Endereço de Entrega:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.rua}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Numero da NF:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="teste">{nf.numeroNf}</label>
                                         </div>
                                         <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Data de Cadastro do Pedido:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.dataPedido}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Numero do imovel:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.numero}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Data de emissão:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="teste">{nf.dataEmissao}</label>
                                         </div>
                                         <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Valor Total do Pedido:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.valorTotal}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Complemento:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.complemento}</label>
-                                        </div>
-                                        <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Nome do Cliente:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.usuario.nome}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Bairro:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.bairro}</label>
-                                        </div>
-                                        <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Telefone para Contato:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.telefone}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Cidade:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.cidade}</label>
-                                        </div>
-                                        <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Email para Contato:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.usuario.email}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Estado:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.uf}</label>
-                                        </div>
-                                        <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Prazo para Entregar:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="">{pedido.diasParaEntrega}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">CEP:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.cep}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Natureza da Operação:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="teste">{nf.naturezaOperacao}</label>
                                         </div>
                                     </form>
                                 </ExpansionPanelDetails>
                                 <Divider />
-                                {pedido.pedidoItens.map(pedidoItem => (
+                                {/* Dados do Pedido */}
+                                <ExpansionPanelDetails className={classes.details}>
+                                    <span className="col-12 section">Dados do pedido:</span>
+                                </ExpansionPanelDetails>
+                                <ExpansionPanelDetails className={classes.details}>
+                                    <form className="form-horizontal form-label-left" noValidate style={{fontSize:12}}>
+                                        <div className="item form-group">
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Numero do Pedido:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="teste">{nf.pedido.idPedido}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Endereço de Entrega:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.cliente.endereco.rua}</label>
+                                        </div>
+                                        <div className="item form-group">
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Data de Cadastro do Pedido:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.dataPedido}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Numero do imovel:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.cliente.endereco.numero}</label>
+                                        </div>
+                                        <div className="item form-group">
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Valor Total do Pedido:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.valorTotal}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Complemento:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.cliente.endereco.complemento}</label>
+                                        </div>
+                                        <div className="item form-group">
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Nome do Cliente:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.cliente.usuario.nome}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Bairro:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.cliente.endereco.bairro}</label>
+                                        </div>
+                                        <div className="item form-group">
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Telefone para Contato:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.cliente.telefone}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Cidade:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.cliente.endereco.cidade}</label>
+                                        </div>
+                                        <div className="item form-group">
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Email para Contato:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.cliente.usuario.email}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Estado:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.cliente.endereco.uf}</label>
+                                        </div>
+                                        <div className="item form-group">
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Prazo para Entregar:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="">{nf.pedido.diasParaEntrega}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">CEP:</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.cliente.endereco.cep}</label>
+                                        </div>
+                                    </form>
+                                </ExpansionPanelDetails>
+                                <Divider />
+                                {nf.pedido.pedidoItens.map(pedidoItem => (
                                     <div key={pedidoItem.idPedidoItem}>
                                         <ExpansionPanelDetails className={classes.details}>
                                             <div className={classes.column}>
@@ -167,19 +168,6 @@ const HistoricoPedidosl = () => {
                                         </ExpansionPanelDetails>
                                     </div>
                                 ))}
-                                <Divider />
-                                <ExpansionPanelActions>
-                                    <strong >Total - {pedido.valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</strong>
-                                    {pedido.statusPedido === "PAGAMENTO_CONFIRMADO" ?
-                                        <Button size="small" color="primary" onClick={() => { aprovarPedido(pedido.idPedido) }}>
-                                            Aprovar pedido
-                                             </Button>
-                                        :
-                                        <Button size="small" color="primary" onClick={() => { confirmarEntrega(pedido.idPedido) }}>
-                                            Confirmar entrega
-                                                 </Button>
-                                    }
-                                </ExpansionPanelActions>
                             </ExpansionPanel>
                         ))}
                     </div>
@@ -187,9 +175,9 @@ const HistoricoPedidosl = () => {
             </div>
         </>
     );
-
 }
-export default class GerenciarPedidos extends Component {
+
+export default class ListarNF extends Component {
     render() {
         return (
             <div>
@@ -202,13 +190,13 @@ export default class GerenciarPedidos extends Component {
                     <div>
                         <div className="page-title">
                             <div className="title_left">
-                                <h3>Gerenciar Pedidos</h3>
+                                <h3>Listar NFs</h3>
                             </div>
                         </div>
                         <div className="col-md-12 col-sm-12">
                             <div className="x_panel">
                                 <div className="x_content">
-                                    <HistoricoPedidosl />
+                                    <ListaDeNF />
                                 </div>
                             </div>
                         </div>
