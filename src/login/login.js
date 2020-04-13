@@ -18,7 +18,7 @@ export default function Login() {
 
 
 
-        api.get('/auth/token', {
+        api.get('/auth/admin/token', {
         
         }).then((response => {
             sessionStorage.setItem("usuario", JSON.stringify(response.data))
@@ -30,7 +30,7 @@ export default function Login() {
             if (401 === error.response.status){
                 return alert("Usuário ou senha não conferem");
         }
-            alert("Erro não esperado");
+            alert("Usuário sem permissão");
         });
     }
 
