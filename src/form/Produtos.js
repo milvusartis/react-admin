@@ -37,10 +37,6 @@ const useSortableData = (items, config = null) => {
   return { items: sortedItems, requestSort, sortConfig };
 };
 
-const ProdutoASerEditado = () => {
-
-}
-
 const ProductTable = props => {
   const { items, requestSort, sortConfig } = useSortableData(props.products);
 
@@ -158,7 +154,7 @@ export default function Produtos() {
 
 
   useEffect(() => {
-    api.get(`produtos`, {
+    api.get(`listarprodutos`, {
 
     }).then(response => {
       // setPedidos(response.data)

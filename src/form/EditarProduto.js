@@ -207,7 +207,7 @@ export default class EditarProduto extends Component {
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
                                                     <button id="send" type="submit" className="btn btn-success"
-                                                    >Submit</button>
+                                                    >Editar</button>
                                                 </div>
                                             </div>
                                         </form>

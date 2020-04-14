@@ -134,7 +134,7 @@ export default class formValidation extends Component {
                                             <div className="ln_solid"/>
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
-                                                    <button id="send" type="submit" className="btn btn-success">Submit</button>
+                                                    <button id="send" type="submit" className="btn btn-success">Cadastrar</button>
                                                 </div>
                                             </div>
                                         </form>
