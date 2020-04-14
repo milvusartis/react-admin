@@ -37,6 +37,10 @@ const useSortableData = (items, config = null) => {
   return { items: sortedItems, requestSort, sortConfig };
 };
 
+const ProdutoASerEditado = () => {
+
+}
+
 const ProductTable = props => {
   const { items, requestSort, sortConfig } = useSortableData(props.products);
 
@@ -45,15 +49,16 @@ const ProductTable = props => {
       return;
     }
     return sortConfig.key === name ? sortConfig.direction : undefined;
-  };
-  return (
-    <div>
-      <div
-        className="right_col"
-        role="main"
-        style={{
-          minHeight: 944
-        }}>
+    };
+    return (
+      <div>
+        <div
+          className="right_col"
+          role="main"
+          style={{
+            minHeight: 944
+          }}
+        >
         <div className>
           <div className="page-title">
             <div className="title_left">
@@ -95,7 +100,7 @@ const ProductTable = props => {
                             className={getClassNamesFor("categoriaNome")}
                           >
                             Categoria
-            </button>
+                          </button>
                         </th>
                         <th>
                           <button
@@ -104,7 +109,7 @@ const ProductTable = props => {
                             className={getClassNamesFor("valorUnitario")}
                           >
                             Valor Unitário
-            </button>
+                          </button>
                         </th>
                         <th>
                           <button
@@ -113,7 +118,7 @@ const ProductTable = props => {
                             className={getClassNamesFor("isAtivo")}
                           >
                             Disponibilide
-            </button>
+                          </button>
                         </th>
                       </tr>
                     </thead>
@@ -124,6 +129,15 @@ const ProductTable = props => {
                           <td>{item.categoriaNome}</td>
                           <td>{item.valorUnitario.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                           <td>{item.isAtivo ? "Disponível" : "Indisponível"}</td>
+                          <td>
+                            <button type="button">
+                              <a
+                                href={`http://localhost:3000/editarproduto/${item.idProduto}`}
+                                >
+                                Editar 
+                              </a>
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
