@@ -10,14 +10,14 @@ export default class formValidation extends Component {
         let imagem=event.target.imagem.value
         let valorUnitario=event.target.vlProduto.value
         let codigo=event.target.Categoria.value
-        await 1;
+
         api.post("/produtos",{
             nome:nome,
             descricao:descricao,
             imagem:imagem,
             valorUnitario:valorUnitario,
             categoria:{
-                id:codigo
+                idCategoria:codigo
             }
         }).then(res => console.log(res.data)).catch(err => console.log(err.data))
         
@@ -126,8 +126,8 @@ export default class formValidation extends Component {
                                                     id="Categoria">
                                                     <option value="" disabled defaultValue> </option>
                                                     <option value="1">Pipa</option>
-                                                    <option value="2">Lata</option>
-                                                    <option value="3">Linha</option>
+                                                    <option value="2">Linha</option>
+                                                    <option value="3">Lata</option>
                                                 </select>
                                                 </div>
                                             </div>

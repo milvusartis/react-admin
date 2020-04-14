@@ -33,6 +33,7 @@ export default class EditarProduto extends Component {
             let listaDeCategoria = response.data;
             listaDeCategoria.map((item) => {
                 if(item.idCategoria != this.state.categoria.idCategoria) {
+                    
                     categoriasExibicao.push(
                         <option value={item.idCategoria}>
                             {item.nome}
@@ -51,36 +52,26 @@ export default class EditarProduto extends Component {
     }
 
     editarProduto = async (event) =>{
-    
+        event.preventDefault()
+
         let nome=event.target.nome.value
         let descricao=event.target.descricao.value
         let imagem=event.target.imagem.value
         let valorUnitario=event.target.vlProduto.value
-        // let idCategoria=event.target.Categoria.value
-        await 1;
+        let idCategoria=event.target.Categoria.value
 
         api.put(`/admin/produtos/${this.state.produto.idProduto}`,{
 
-            idProduto:this.state.produto.idProduto,
+            idProduto:"33",
             nome:nome,
             descricao:descricao,
             imagem:imagem,
             valorUnitario:valorUnitario,
-            // categoria:{
-            //     idCategoria:idCategoria
-            // }
+            categoria:{
+                idCategoria:idCategoria
+            }
             
-        })
-        .then(res => {
-            return res.json()
-        })
-        .then(json => {
-            console.log(json)
-			this.setState({
-                user:json
-            })
-        })
-        .catch(err => console.log(err.data))
+        }).then(res => console.log(res.data)).catch(err => console.log(err.data))
         
     }
 
@@ -203,11 +194,12 @@ export default class EditarProduto extends Component {
                                                         name="Categoria" 
                                                         id="Categoria"
                                                         >
-                                                        {this.state.categorias}
                                                         <option
+                                                        value={this.state.categoria.idCategoria}
                                                         defaultValue={this.state.categoria.idCategoria}>
                                                             {this.state.categoria.nome}
                                                         </option>
+                                                         {this.state.categorias}
                                                     </select>
                                                 </div>
                                             </div>
