@@ -13,24 +13,27 @@ export default function Login() {
 
     async function handleLogin(e){
         e.preventDefault();
-        const credenciais = btoa(JSON.stringify({"username":email, "password":senha}))
-        sessionStorage.setItem("credenciais", credenciais)
+        // const credenciais = btoa(JSON.stringify({"username":email, "password":senha}))
+        // sessionStorage.setItem("credenciais", credenciais)
 
 
 
-        api.get('/auth/admin/token', {
-        
+        api.post('/login', {
+            email: email,
+            senha: senha        
         }).then((response => {
-            sessionStorage.setItem("usuario", JSON.stringify(response.data))
+            // sessionStorage.setItem("usuario", JSON.stringify(response.data))
+            sessionStorage.setItem("token", JSON.stringify(response.headers.authorization));
             history.push("/cadastroproduto")
             window.location.reload()
 
         
         })).catch((error) => {
-            if (401 === error.response.status){
-                return alert("Usuário ou senha não conferem");
-        }
-            alert("Usuário sem permissão");
+            console.log(error+"OIOIOI")
+        //     if (401 === error.response.status){
+        //         return alert("Usuário ou senha não conferem");
+        // }
+            // alert("Usuário sem permissão");
         });
     }
 
