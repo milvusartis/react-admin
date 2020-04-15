@@ -88,100 +88,110 @@ const HistoricoPedidosl = () => {
             <div className="pedido-container">
                 <div className="content">
                     <div className={classes.root}>
-                        {pedidos.map(pedido => (
-                            <ExpansionPanel key={pedido.idPedido} TransitionProps={{ unmountOnExit: true }} expanded={expanded === `panel${pedido.idPedido}`} onChange={handleChange(`panel${pedido.idPedido}`)}>
-                                <ExpansionPanelSummary
-                                    expandIcon={<MdExpandMore />}
-                                    aria-controls={`panel${pedido.idPedido}c-content`}
-                                    id={`panel${pedido.idPedido}c-header`}>
-                                    <div className={classes.column}>
-                                        <Typography className={classes.heading}>Pedido: #{pedido.idPedido}</Typography>
-                                    </div>
-                                    <div className={classes.column}>
-                                        <Typography className={classes.secondaryHeading}>{showMenssage(pedido.statusPedido)}</Typography>
-                                    </div>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails className={classes.details}>
-                                    <span className="col-12 section">Dados do pedido:</span>
-                                </ExpansionPanelDetails>
-                                <ExpansionPanelDetails className={classes.details}>
-                                    <form className="form-horizontal form-label-left" noValidate>
-                                        <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Numero do Pedido:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="teste">{pedido.idPedido}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Endereço de Entrega:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.rua}</label>
-                                        </div>
-                                        <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Data de Cadastro do Pedido:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.dataPedido}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Numero do imovel:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.numero}</label>
-                                        </div>
-                                        <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Valor Total do Pedido:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.valorTotal}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Complemento:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.complemento}</label>
-                                        </div>
-                                        <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Nome do Cliente:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.usuario.nome}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Bairro:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.bairro}</label>
-                                        </div>
-                                        <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Telefone para Contato:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.telefone}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Cidade:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.cidade}</label>
-                                        </div>
-                                        <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Email para Contato:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.usuario.email}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Estado:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.uf}</label>
-                                        </div>
-                                        <div className="item form-group">
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">Prazo para Entregar:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="">{pedido.diasParaEntrega}</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">CEP:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.cep}</label>
-                                        </div>
-                                    </form>
-                                </ExpansionPanelDetails>
-                                <Divider />
-                                {pedido.pedidoItens.map(pedidoItem => (
-                                    <div key={pedidoItem.idPedidoItem}>
-                                        <ExpansionPanelDetails className={classes.details}>
+                        {pedidos.map(pedido => {
+                            if (pedido.statusPedido==="PAGAMENTO_CONFIRMADO"||pedido.statusPedido==="PEDIDO_ENVIADO") {
+                                return (
+                                    <ExpansionPanel key={pedido.idPedido} TransitionProps={{ unmountOnExit: true }} expanded={expanded === `panel${pedido.idPedido}`} onChange={handleChange(`panel${pedido.idPedido}`)}>
+                                        <ExpansionPanelSummary
+                                            expandIcon={<MdExpandMore />}
+                                            aria-controls={`panel${pedido.idPedido}c-content`}
+                                            id={`panel${pedido.idPedido}c-header`}>
                                             <div className={classes.column}>
-                                                <img width="80" src={pedidoItem.produto.imagem} alt="" />
+                                                <Typography className={classes.heading}>Pedido: #{pedido.idPedido}</Typography>
                                             </div>
-                                            <div className={clsx(classes.column, classes.helper)}>
-                                                <Typography variant="caption">
-                                                    <p>{pedidoItem.produto.nome}</p>
-                                                    <strong>{pedidoItem.quantidade} und - {pedidoItem.precoVendido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</strong>
-                                                    <p>Subtotal: {((pedidoItem.quantidade) * (pedidoItem.precoVendido)).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
-                                                </Typography>
+                                            <div className={classes.column}>
+                                                <Typography className={classes.secondaryHeading}>{showMenssage(pedido.statusPedido)}</Typography>
                                             </div>
+                                        </ExpansionPanelSummary>
+                                        <ExpansionPanelDetails className={classes.details}>
+                                            <span className="col-12 section">Dados do pedido:</span>
                                         </ExpansionPanelDetails>
-                                    </div>
-                                ))}
-                                <Divider />
-                                <ExpansionPanelActions>
-                                    <strong >Total - {pedido.valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</strong>
-                                    {pedido.statusPedido === "PAGAMENTO_CONFIRMADO" ?
-                                        <Button size="small" color="primary" onClick={() => { aprovarPedido(pedido.idPedido) }}>
-                                            Aprovar pedido
+                                        <ExpansionPanelDetails className={classes.details}>
+                                            <form className="form-horizontal form-label-left" noValidate style={{ fontSize: 12 }}>
+                                                <div className="item form-group">
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">Numero do Pedido:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align" name="teste">{pedido.idPedido}</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">Endereço de Entrega:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.rua}</label>
+                                                </div>
+                                                <div className="item form-group">
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">Data de Cadastro do Pedido:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.dataPedido}</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">Numero do imovel:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.numero}</label>
+                                                </div>
+                                                <div className="item form-group">
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">Valor Total do Pedido:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.valorTotal}</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">Complemento:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.complemento}</label>
+                                                </div>
+                                                <div className="item form-group">
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">Nome do Cliente:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.usuario.nome}</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">Bairro:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.bairro}</label>
+                                                </div>
+                                                <div className="item form-group">
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">Telefone para Contato:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.telefone}</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">Cidade:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.cidade}</label>
+                                                </div>
+                                                <div className="item form-group">
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">Email para Contato:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.usuario.email}</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">Estado:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.uf}</label>
+                                                </div>
+                                                <div className="item form-group">
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">Prazo para Entregar:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align" name="">{pedido.diasParaEntrega}</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">CEP:</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.cep}</label>
+                                                </div>
+                                            </form>
+                                        </ExpansionPanelDetails>
+                                        <Divider />
+                                        {pedido.pedidoItens.map(pedidoItem => (
+                                            <div key={pedidoItem.idPedidoItem}>
+                                                <ExpansionPanelDetails className={classes.details}>
+                                                    <div className={classes.column}>
+                                                        <img width="80" src={pedidoItem.produto.imagem} alt="" />
+                                                    </div>
+                                                    <div className={clsx(classes.column, classes.helper)}>
+                                                        <Typography variant="caption">
+                                                            <p>{pedidoItem.produto.nome}</p>
+                                                            <strong>{pedidoItem.quantidade} und - {pedidoItem.precoVendido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</strong>
+                                                            <p>Subtotal: {((pedidoItem.quantidade) * (pedidoItem.precoVendido)).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                                                        </Typography>
+                                                    </div>
+                                                </ExpansionPanelDetails>
+                                            </div>
+                                        ))}
+                                        <Divider />
+                                        <ExpansionPanelActions>
+                                            <strong >Total - {pedido.valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</strong>
+                                            {pedido.statusPedido === "PAGAMENTO_CONFIRMADO" ?
+                                                <Button size="small" color="primary" onClick={() => { 
+                                                    aprovarPedido(pedido.idPedido)
+                                                    window.location.reload()
+                                                    }}>
+                                                    Aprovar pedido
                                              </Button>
-                                        :
-                                        <Button size="small" color="primary" onClick={() => { confirmarEntrega(pedido.idPedido) }}>
-                                            Confirmar entrega
+                                                :
+                                                <Button size="small" color="primary" onClick={() => { 
+                                                    confirmarEntrega(pedido.idPedido)
+                                                    window.location.reload() 
+                                                    }}>
+                                                    Confirmar entrega
                                                  </Button>
-                                    }
-                                </ExpansionPanelActions>
-                            </ExpansionPanel>
-                        ))}
+                                            }
+                                        </ExpansionPanelActions>
+                                    </ExpansionPanel>
+                                )
+                            }
+                        })}
                     </div>
                 </div>
             </div>
