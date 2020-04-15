@@ -3,6 +3,10 @@ import api from "../service/api";
 import '../plugins/style.css'
 
 export default class formValidation extends Component {
+    state={
+        url:""
+    }
+
     salvar = async (event) =>{
         event.preventDefault()
         let nome=event.target.nome.value
@@ -10,6 +14,10 @@ export default class formValidation extends Component {
         let imagem=event.target.imagem.value
         let valorUnitario=event.target.vlProduto.value
         let codigo=event.target.Categoria.value
+
+        let urlCadastro = window.location.href.toString();
+        let url = urlCadastro.substring(0, 21)
+        this.setState({url: url})
 
         api.post("/produtos",{
             nome:nome,
@@ -136,7 +144,7 @@ export default class formValidation extends Component {
                                                 <div className="col-md-6 offset-md-3 mt-3">
                                                     <button id="send" type="submit">
                                                         <a
-                                                            href={`http://localhost:3000/produtos`}
+                                                            href={`${this.state.url}/produtos`}
                                                         >
                                                             Cadastrar 
                                                         </a>
