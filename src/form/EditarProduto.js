@@ -206,8 +206,13 @@ export default class EditarProduto extends Component {
                                             <div className="ln_solid"/>
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
-                                                    <button id="send" type="submit" className="btn btn-success"
-                                                    >Editar</button>
+                                                <button id="send" type="submit">
+                                                        <a
+                                                            href={`http://localhost:3000/produtos`}
+                                                        >
+                                                            Cadastrar 
+                                                        </a>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>

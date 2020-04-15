@@ -124,7 +124,7 @@ export default class formValidation extends Component {
                                                 <select className="form-control" 
                                                     name="Categoria" 
                                                     id="Categoria">
-                                                    <option value="" disabled defaultValue> </option>
+                                                    <option defaultValue="" > </option>
                                                     <option value="1">Pipa</option>
                                                     <option value="2">Linha</option>
                                                     <option value="3">Lata</option>
@@ -134,7 +134,13 @@ export default class formValidation extends Component {
                                             <div className="ln_solid"/>
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
-                                                    <button id="send" type="submit" className="btn btn-success">Cadastrar</button>
+                                                    <button id="send" type="submit">
+                                                        <a
+                                                            href={`http://localhost:3000/produtos`}
+                                                        >
+                                                            Cadastrar 
+                                                        </a>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>
