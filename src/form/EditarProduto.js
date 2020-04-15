@@ -7,12 +7,15 @@ export default class EditarProduto extends Component {
     state = {
         produto: [],
         categorias: [],
-        categoria: {}
+        categoria: {},
+        url: ""
     }
 
     async buscarProduto() {
         let urlProduto = window.location.href.toString();
         let idProdutoLink = urlProduto.substr(36).split("?", 1)
+        let url = urlProduto.substring(0, 21)
+        this.setState({url: url})
 
         await api.get("/produtos").then((response) => {
             let listaDeProdutos = response.data.content;
@@ -208,7 +211,7 @@ export default class EditarProduto extends Component {
                                                 <div className="col-md-6 offset-md-3 mt-3">
                                                 <button id="send" type="submit">
                                                         <a
-                                                            href={`http://localhost:3000/produtos`}
+                                                            href={`${this.state.url}/produtos`}
                                                         >
                                                             Editar 
                                                         </a>

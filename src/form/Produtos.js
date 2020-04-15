@@ -128,7 +128,7 @@ const ProductTable = props => {
                           <td>
                             <button type="button">
                               <a
-                                href={`http://localhost:3000/editarproduto/${item.idProduto}`}
+                                href={`${window.location.href.toString().substring(0, 21)}/editarproduto/${item.idProduto}`}
                                 >
                                 Editar 
                               </a>
