@@ -210,7 +210,7 @@ export default class EditarProduto extends Component {
                                                         <a
                                                             href={`http://localhost:3000/produtos`}
                                                         >
-                                                            Cadastrar 
+                                                            Editar 
                                                         </a>
                                                     </button>
                                                 </div>
