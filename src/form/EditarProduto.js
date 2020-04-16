@@ -3,34 +3,82 @@ import api from "../service/api";
 import '../plugins/style.css'
 import { Link } from 'react-router-dom'
 
-export default class formValidation extends Component {
-    state={
-        url:""
+export default class EditarProduto extends Component {
+
+    state = {
+        produto: [],
+        categorias: [],
+        categoria: {},
+        url: ""
     }
 
-    salvar = async (event) =>{
+    async buscarProduto() {
+        let urlProduto = window.location.href.toString();
+        let idProdutoLink = urlProduto.substr(36).split("?", 1)
+        let url = urlProduto.substring(0, 21)
+        this.setState({url: url})
+
+        await api.get("/produtos").then((response) => {
+            let listaDeProdutos = response.data.content;
+            listaDeProdutos.map((item) => {
+                if(item.idProduto == idProdutoLink) {
+                    this.setState({produto: item})
+                    this.setState({categoria: item.categoria})
+                }
+            })
+        })
+        this.buscarCategorias()
+    }
+
+    async buscarCategorias() {
+        let categoriasExibicao = []
+
+        await api.get("/categorias").then((response) => {
+            let listaDeCategoria = response.data;
+            listaDeCategoria.map((item) => {
+                if(item.idCategoria != this.state.categoria.idCategoria) {
+                    
+                    categoriasExibicao.push(
+                        <option value={item.idCategoria}>
+                            {item.nome}
+                        </option>
+                    )
+                }
+            })
+        })
+
+        this.setState({categorias: categoriasExibicao})
+
+    }
+
+    componentDidMount() {
+        this.buscarProduto();
+    }
+
+    editarProduto = async (event) =>{
         event.preventDefault()
+
         let nome=event.target.nome.value
         let descricao=event.target.descricao.value
         let imagem=event.target.imagem.value
         let valorUnitario=event.target.vlProduto.value
-        let codigo=event.target.Categoria.value
+        let idCategoria=event.target.Categoria.value
 
-        let urlCadastro = window.location.href.toString();
-        let url = urlCadastro.substring(0, 21)
-        this.setState({url: url})
+        api.put(`/admin/produtos/${this.state.produto.idProduto}`,{
 
-        api.post("/produtos",{
+            idProduto:"33",
             nome:nome,
             descricao:descricao,
             imagem:imagem,
             valorUnitario:valorUnitario,
             categoria:{
-                idCategoria:codigo
+                idCategoria:idCategoria
             }
+            
         }).then(res => console.log(res.data)).catch(err => console.log(err.data))
         
     }
+
     render() {
         return (
             <div>
@@ -38,8 +86,9 @@ export default class formValidation extends Component {
                     className="right_col"
                     role="main"
                     style={{
-                    minHeight: 944
-                }}>
+                        minHeight: 944
+                    }}
+                >
                     <div className>
                         <div className="page-title">
                             <div className="title_left">
@@ -56,31 +105,37 @@ export default class formValidation extends Component {
                                         </h2>
                                         <ul className="nav navbar-right panel_toolbox">
                                             <li>
-                                                <a className="collapse-link"><i className="fa fa-chevron-down"/></a>
+                                                <a className="collapse-link"><i className="fa fa-chevron-up"/></a>
                                             </li>
                                         </ul>
                                         <div className="clearfix"/>
                                     </div>
                                     <div className="x_content">
-                                        <form className="form-horizontal form-label-left" noValidate onSubmit={this.salvar}>
-                                            <span className="section">Complete o form para cadastrar um Produto</span>
+                                        <form className="form-horizontal form-label-left" noValidate onSubmit={this.editarProduto}>
+                                            <span className="section">Preencha as alterações do produto</span>
                                             <div className="item form-group">
-                                                <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="nome">Nome
-                                                    <span className="required">*</span>
+                                                <label 
+                                                    className="col-form-label col-md-3 col-sm-3 label-align" 
+                                                    htmlFor="nome">
+                                                    Nome
                                                 </label>
                                                 <div className="col-md-6 col-sm-6">
                                                     <input
+                                                        type="text"
                                                         id="nome"
-                                                        className="form-control"
                                                         name="nome"
                                                         placeholder="Nome do produto"
                                                         required="required"
-                                                        type="text"/>
+                                                        className="form-control"
+                                                        defaultValue={this.state.produto.nome}                                                      
+                                                        />
                                                 </div>
                                             </div>
                                             <div className="item form-group">
-                                                <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="descricao">Descrição
-                                                    <span className="required">*</span>
+                                                <label
+                                                    className="col-form-label col-md-3 col-sm-3 label-align"
+                                                    htmlFor="descricao">
+                                                    Descrição
                                                 </label>
                                                 <div className="col-md-6 col-sm-6">
                                                     <input
@@ -89,28 +144,34 @@ export default class formValidation extends Component {
                                                         name="descricao"
                                                         placeholder="Descrição do produto"
                                                         required="required"
-                                                        className="form-control"/>
+                                                        className="form-control"
+                                                        defaultValue={this.state.produto.descricao}
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="item form-group">
-                                                <label className="col-form-label col-md-3 col-sm-3 label-align" htmlFor="imagem">Imagem
-                                                    <span className="required">*</span>
+                                                <label
+                                                    className="col-form-label col-md-3 col-sm-3 label-align"
+                                                    htmlFor="imagem">
+                                                    Imagem
                                                 </label>
                                                 <div className="col-md-6 col-sm-6">
                                                     <input
                                                         type="text"
                                                         id="imagem"
                                                         name="imagem"
-                                                        placeholder="url da imagem do produto"
+                                                        placeholder="Url da imagem do produto"
                                                         required="required"
-                                                        className="form-control"/>
+                                                        className="form-control"
+                                                        defaultValue={this.state.produto.imagem}
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="item form-group">
                                                 <label
                                                     className="col-form-label col-md-3 col-sm-3 label-align"
-                                                    htmlFor="vlProduto">Valor
-                                                    <span className="required">*</span>
+                                                    htmlFor="vlProduto">
+                                                    Valor
                                                 </label>
                                                 <div className="col-md-6 col-sm-6">
                                                     <input
@@ -120,32 +181,38 @@ export default class formValidation extends Component {
                                                         placeholder="Valor do Produto"
                                                         required="vlProduto"
                                                         data-validate-minmax="0,10000"
-                                                        className="form-control"/>
+                                                        className="form-control"
+                                                        defaultValue={this.state.produto.valorUnitario}
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="item form-group mb-3">
                                                 <label
                                                     className="col-form-label col-md-3 col-sm-3 label-align"
-                                                    htmlFor="website">Categoria
-                                                    <span className="required">*</span>
+                                                    htmlFor="website">
+                                                    Categoria
                                                 </label>
                                                 <div className="col-md-6 col-sm-6">
-                                                <select className="form-control" 
-                                                    name="Categoria" 
-                                                    id="Categoria">
-                                                    <option defaultValue="" > </option>
-                                                    <option value="1">Pipa</option>
-                                                    <option value="2">Linha</option>
-                                                    <option value="3">Lata</option>
-                                                </select>
+                                                    <select
+                                                        className="form-control" 
+                                                        name="Categoria" 
+                                                        id="Categoria"
+                                                        >
+                                                        <option
+                                                        value={this.state.categoria.idCategoria}
+                                                        defaultValue={this.state.categoria.idCategoria}>
+                                                            {this.state.categoria.nome}
+                                                        </option>
+                                                         {this.state.categorias}
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div className="ln_solid"/>
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
-                                                    <Link to="/produtos">
+                                                <Link to="/produtos">
                                                         <button id="send" type="submit" className="btn btn-primary">
-                                                                Cadastrar
+                                                                Editar
                                                         </button>
                                                     </Link>
                                                 </div>
@@ -161,3 +228,4 @@ export default class formValidation extends Component {
         )
     }
 }
+    

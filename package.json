@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.9.9",
     "axios": "^0.19.2",
     "jquery": "^3.4.1",
     "react": "^16.13.1",
     "react-debouncing": "^1.0.2",
     "react-dom": "^16.13.1",
+    "react-icons": "^3.9.0",
     "react-router-dom": "^5.1.2",
     "react-virtualized": "^9.21.2",
     "reactstrap": "^8.4.1"

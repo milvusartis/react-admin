@@ -9,9 +9,6 @@ import { Button } from 'reactstrap';
 export default class Sidemenu extends Component {
   
 
-  constructor(props){
-    super(props);
-  }
   // Sidebar
   initSidebar = () => {
     const CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
@@ -95,7 +92,7 @@ export default class Sidemenu extends Component {
     $SIDEBAR_MENU
       .find('a')
       .filter(function () {
-        return this.href == CURRENT_URL;
+        return this.href === CURRENT_URL;
       })
       .parent('li')
       .addClass('current-page')
@@ -160,7 +157,14 @@ export default class Sidemenu extends Component {
                       <a href="/cadastraproduto">Cadastrar Produto</a>
                     </li>
                     <li>
-                      <a href="/pedidos">Aprovar Pedidos</a>
+                      <a href="/gerenciarpedidos">Gerenciar Pedidos</a>
+                    </li>
+                    <li>
+                      <a href="/produtos">Exibir Produtos</a>
+                    </li>
+                    
+                    <li>
+                      <a href="/listarnf">Listar NFs</a>
                     </li>
                     <li>
                       <Button onClick={this.logout} color="danger" href="/">Sair</Button>

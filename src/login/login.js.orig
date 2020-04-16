@@ -25,7 +25,6 @@ export default function Login() {
             // sessionStorage.setItem("usuario", JSON.stringify(response.data))
             sessionStorage.setItem("token", JSON.stringify(response.headers.authorization));
             history.push("/home")
-            window.location.reload();
 
         
         })).catch((error) => {
