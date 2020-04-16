@@ -56,24 +56,6 @@ const ListaDeNF = () => {
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
-    function dynamicsort(property,order) {
-        var sort_order = 1;
-        if(order === "desc"){
-            sort_order = -1;
-        }
-        return function (a, b){
-            // a should come before b in the sorted order
-            if(a[property] < b[property]){
-                    return -1 * sort_order;
-            // a should come after b in the sorted order
-            }else if(a[property] > b[property]){
-                    return 1 * sort_order;
-            // a and b are the same
-            }else{
-                    return 0 * sort_order;
-            }
-        }
-    }
     useEffect(() => {
         api.get(`/notasfiscais`, {
         }).then(response => {
@@ -186,14 +168,6 @@ const ListaDeNF = () => {
                                 ))}
                             </ExpansionPanel>
                         ))}
-                        <button onClick={()=>{
-                            nf.sort(dynamicsort("idNotaFiscal","asc"))
-                            history.push(location.pathname)
-                        }}>Asc</button>
-                        <button onClick={()=>{
-                            nf.sort(dynamicsort("idNotaFiscal","desc"))
-                            history.push("/listarnf")
-                        }}>Desc</button>
                     </div>
                 </div>
             </div>
