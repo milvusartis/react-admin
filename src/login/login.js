@@ -22,8 +22,8 @@ export default function Login() {
         
         }).then((response => {
             sessionStorage.setItem("usuario", JSON.stringify(response.data))
-            history.push("/cadastroproduto")
-            window.location.reload()
+            history.push("/home")
+            
 
         
         })).catch((error) => {
