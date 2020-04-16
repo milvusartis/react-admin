@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import api from "../service/api";
 import '../plugins/style.css'
+import { Link } from 'react-router-dom'
 
 export default class formValidation extends Component {
     state={
@@ -142,13 +143,11 @@ export default class formValidation extends Component {
                                             <div className="ln_solid"/>
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
-                                                    <button id="send" type="submit">
-                                                        <a
-                                                            href={`${this.state.url}/produtos`}
-                                                        >
-                                                            Cadastrar 
-                                                        </a>
-                                                    </button>
+                                                    <Link to="/produtos">
+                                                        <button id="send" type="submit" className="btn btn-primary">
+                                                                Cadastrar
+                                                        </button>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </form>

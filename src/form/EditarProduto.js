@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import api from "../service/api";
 import '../plugins/style.css'
+import { Link } from 'react-router-dom'
 
 export default class EditarProduto extends Component {
 
@@ -209,13 +210,11 @@ export default class EditarProduto extends Component {
                                             <div className="ln_solid"/>
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
-                                                <button id="send" type="submit">
-                                                        <a
-                                                            href={`${this.state.url}/produtos`}
-                                                        >
-                                                            Editar 
-                                                        </a>
-                                                    </button>
+                                                <Link to="/produtos">
+                                                        <button id="send" type="submit" className="btn btn-primary">
+                                                                Editar
+                                                        </button>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </form>
