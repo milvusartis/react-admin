@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import api from "../service/api";
 import '../plugins/style.css'
 import { Link } from 'react-router-dom'
+import "./botao.css";
 
 export default class EditarProduto extends Component {
 
@@ -24,6 +25,7 @@ export default class EditarProduto extends Component {
                 if(item.idProduto == idProdutoLink) {
                     this.setState({produto: item})
                     this.setState({categoria: item.categoria})
+                    this.setState({isAtivo:item.isAtivo})
                 }
             })
         })
@@ -62,6 +64,7 @@ export default class EditarProduto extends Component {
         let descricao=event.target.descricao.value
         let imagem=event.target.imagem.value
         let valorUnitario=event.target.vlProduto.value
+        let isAtivo=event.target.isAtivo.value
         let idCategoria=event.target.Categoria.value
 
         api.put(`/admin/produtos/${this.state.produto.idProduto}`,{
@@ -72,7 +75,8 @@ export default class EditarProduto extends Component {
             valorUnitario:valorUnitario,
             categoria:{
                 idCategoria:idCategoria
-            }
+            },
+            isAtivo:isAtivo
             
         }).then(res => console.log(res.data)).catch(err => console.log(err.data))
         
@@ -206,15 +210,34 @@ export default class EditarProduto extends Component {
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div className="item form-group mb-3">
+                                                <label
+                                                    className="col-form-label col-md-3 col-sm-3 label-align"
+                                                    htmlFor="website">Disponibilidade
+                                                    <span className="required">*</span>
+                                                </label>
+                                                <div className="row">
+                                                    <div className="col-6">
+                                                        <div className="radio">
+                                                            {this.state.isAtivo==true?<input type="radio" name="isAtivo" value="true" checked></input>:<input type="radio" name="isAtivo" value="true"></input>}
+                                                        </div>
+                                                        <label>Disponível</label>
+                                                    </div>
+                                                    <div className="col-6">
+                                                        <div className="radio">
+                                                        {this.state.isAtivo==false?<input type="radio" name="isAtivo" value="false" checked></input>:<input type="radio" name="isAtivo" value="true"></input>}
+                                                        </div>
+                                                        <label>Indisponível</label>
+                                                    </div>
+                                                </div>
+                                                </div>
                                             <div className="ln_solid"/>
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
-                                                <button id="send" type="submit">
-                                                        <a
-                                                            href={`${this.state.url}/cadastrarproduto`}
-                                                        >
+                                                <button id="send" type="submit" class="btn btn-primary">
+                                                        {/* <a href={`${this.state.url}/cadastrarproduto`} > */}
                                                             Editar 
-                                                        </a>
+                                                        {/* </a> */}
                                                     </button>
                                                 </div>
                                             </div>

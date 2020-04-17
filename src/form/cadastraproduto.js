@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import api from "../service/api";
 import '../plugins/style.css'
 import { Link } from 'react-router-dom'
+import "./botao.css";
 
 export default class formValidation extends Component {
     state={
@@ -103,7 +104,7 @@ export default class formValidation extends Component {
                                                         type="text"
                                                         id="imagem"
                                                         name="imagem"
-                                                        placeholder="url da imagem do produto"
+                                                        placeholder="Url da imagem do produto"
                                                         required="required"
                                                         className="form-control"/>
                                                 </div>
@@ -119,7 +120,7 @@ export default class formValidation extends Component {
                                                         type="number"
                                                         id="vlProduto"
                                                         name="vlProduto"
-                                                        placeholder="Valor do Produto"
+                                                        placeholder="Valor do produto"
                                                         required="vlProduto"
                                                         data-validate-minmax="0,10000"
                                                         className="form-control"/>
@@ -135,37 +136,42 @@ export default class formValidation extends Component {
                                                 <select className="form-control" 
                                                     name="Categoria" 
                                                     id="Categoria">
-                                                    <option defaultValue="" > </option>
+                                                    <option defaultValue="" >Categoria do produto</option>
                                                     <option value="1">Pipa</option>
                                                     <option value="2">Linha</option>
                                                     <option value="3">Lata</option>
                                                 </select>
                                                 </div>
                                             </div>
-                                             <div className="item form-group mb-3">
+                                            <div className="item form-group mb-3">
                                                 <label
                                                     className="col-form-label col-md-3 col-sm-3 label-align"
                                                     htmlFor="website">Disponibilidade
                                                     <span className="required">*</span>
                                                 </label>
-                                                <div>
-                                                <input type="radio" name="disponibilidade" value="disponivel">
-                                                    Disponível
-                                                </input>
-                                                <input type="radio" name="disponibilidade" value="indisponivel">
-                                                    Indisponível
-                                                </input>
+                                                <div className="row">
+                                                    <div className="col-6">
+                                                        <div className="radio">
+                                                            <input type="radio" name="isAtivo" value="true"/>
+                                                        </div>
+                                                        <label>Disponível</label>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div className="radio">
+                                                            <input type="radio" name="isAtivo" value="false"/>
+                                                        </div>
+                                                        <label>Indisponivel</label>
+                                                    </div>
                                                 </div>
                                             </div>
-
                                             <div className="ln_solid"/>
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
-                                                    <Link to="/produtos">
+                                                    {/* <Link to="/produtos"> */}
                                                         <button id="send" type="submit" className="btn btn-primary">
                                                                 Cadastrar
                                                         </button>
-                                                    </Link>
+                                                    {/* </Link> */}
                                                 </div>
                                             </div>
                                         </form>
