@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import api from "../service/api";
 import '../plugins/style.css'
-import { Link } from 'react-router-dom'
 import "./botao.css";
 
 export default class EditarProduto extends Component {
@@ -237,9 +236,7 @@ export default class EditarProduto extends Component {
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
                                                 <button id="send" class="btn btn-primary">
-                                                        {/* <a href={this.state.url + "/produtos"}> */}
                                                             Editar 
-                                                        {/* </a> */}
                                                     </button>
                                                 </div>
                                             </div>

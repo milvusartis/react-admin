@@ -110,7 +110,7 @@ const HistoricoPedidosl = () => {
                                             <form className="form-horizontal form-label-left" noValidate style={{ fontSize: 12 }}>
                                                 <div className="item form-group">
                                                     <label className="col-form-label col-md-6 col-sm-6 label-align">Numero do Pedido:</label>
-                                                    <label className="col-form-label col-md-6 col-sm-6 label-align" name="teste">{pedido.idPedido}</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align" name="teste">#{pedido.idPedido}</label>
                                                     <label className="col-form-label col-md-6 col-sm-6 label-align">Endereço de Entrega:</label>
                                                     <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.rua}</label>
                                                 </div>
@@ -122,7 +122,7 @@ const HistoricoPedidosl = () => {
                                                 </div>
                                                 <div className="item form-group">
                                                     <label className="col-form-label col-md-6 col-sm-6 label-align">Valor Total do Pedido:</label>
-                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.valorTotal}</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</label>
                                                     <label className="col-form-label col-md-6 col-sm-6 label-align">Complemento:</label>
                                                     <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.complemento}</label>
                                                 </div>
@@ -146,7 +146,7 @@ const HistoricoPedidosl = () => {
                                                 </div>
                                                 <div className="item form-group">
                                                     <label className="col-form-label col-md-6 col-sm-6 label-align">Prazo para Entregar:</label>
-                                                    <label className="col-form-label col-md-6 col-sm-6 label-align" name="">{pedido.diasParaEntrega}</label>
+                                                    <label className="col-form-label col-md-6 col-sm-6 label-align" name="">{pedido.diasParaEntrega == 1 ? pedido.diasParaEntrega + " dia" : pedido.diasParaEntrega + " dias"}</label>
                                                     <label className="col-form-label col-md-6 col-sm-6 label-align">CEP:</label>
                                                     <label className="col-form-label col-md-6 col-sm-6 label-align">{pedido.cliente.endereco.cep}</label>
                                                 </div>
