@@ -59,7 +59,6 @@ const ListaDeNF = () => {
     useEffect(() => {
         api.get(`/notasfiscais`, {
         }).then(response => {
-            console.log(response)
             setNF(response.data);
         })
     }, []);
@@ -75,7 +74,7 @@ const ListaDeNF = () => {
                                     aria-controls={`panel${nf.idNotaFiscal}c-content`}
                                     id={`panel${nf.idNotaFiscal}c-header`}>
                                     <div className={classes.column}>
-                                        <Typography className={classes.heading}>Nota Fiscal Nº:{nf.idNotaFiscal}</Typography>
+                                        <Typography className={classes.heading}>Nota Fiscal Nº: {nf.numeroNf.replace(/^(\d{3})(\d{3})(\d{3})/g,"$1.$2.$3")}</Typography>
                                     </div>
                                 </ExpansionPanelSummary>
                                 {/* Dados da NF */}
@@ -86,7 +85,7 @@ const ListaDeNF = () => {
                                     <form className="form-horizontal form-label-left" noValidate>
                                         <div className="item form-group">
                                             <label className="col-form-label col-md-6 col-sm-6 label-align">Numero da NF:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="teste">{nf.numeroNf}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="teste">{nf.numeroNf.replace(/^(\d{3})(\d{3})(\d{3})/g,"$1.$2.$3")}</label>
                                         </div>
                                         <div className="item form-group">
                                             <label className="col-form-label col-md-6 col-sm-6 label-align">Data de emissão:</label>
@@ -107,7 +106,7 @@ const ListaDeNF = () => {
                                     <form className="form-horizontal form-label-left" noValidate style={{fontSize:12}}>
                                         <div className="item form-group">
                                             <label className="col-form-label col-md-6 col-sm-6 label-align">Numero do Pedido:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="teste">{nf.pedido.idPedido}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="teste">#{nf.pedido.idPedido}</label>
                                             <label className="col-form-label col-md-6 col-sm-6 label-align">Endereço de Entrega:</label>
                                             <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.cliente.endereco.rua}</label>
                                         </div>
@@ -119,7 +118,7 @@ const ListaDeNF = () => {
                                         </div>
                                         <div className="item form-group">
                                             <label className="col-form-label col-md-6 col-sm-6 label-align">Valor Total do Pedido:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.valorTotal}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</label>
                                             <label className="col-form-label col-md-6 col-sm-6 label-align">Complemento:</label>
                                             <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.cliente.endereco.complemento}</label>
                                         </div>
@@ -143,7 +142,7 @@ const ListaDeNF = () => {
                                         </div>
                                         <div className="item form-group">
                                             <label className="col-form-label col-md-6 col-sm-6 label-align">Prazo para Entregar:</label>
-                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="">{nf.pedido.diasParaEntrega}</label>
+                                            <label className="col-form-label col-md-6 col-sm-6 label-align" name="">{nf.pedido.diasParaEntrega == 1 ? nf.pedido.diasParaEntrega + " dia" : nf.pedido.diasParaEntrega + " dias"}</label>
                                             <label className="col-form-label col-md-6 col-sm-6 label-align">CEP:</label>
                                             <label className="col-form-label col-md-6 col-sm-6 label-align">{nf.pedido.cliente.endereco.cep}</label>
                                         </div>
