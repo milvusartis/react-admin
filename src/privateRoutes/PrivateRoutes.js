@@ -5,7 +5,7 @@ import { isLogged } from './PrivateLogin.js';
 
 const PrivateRoute = props => isLogged () 
 ? <Route {...props}/>
-: <Redirect to="/" />
+: <Redirect to="/login" />
 
 
 export default PrivateRoute;
