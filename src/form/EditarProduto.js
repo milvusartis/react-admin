@@ -66,7 +66,6 @@ export default class EditarProduto extends Component {
 
         api.put(`/admin/produtos/${this.state.produto.idProduto}`,{
 
-            idProduto:"33",
             nome:nome,
             descricao:descricao,
             imagem:imagem,
@@ -210,11 +209,13 @@ export default class EditarProduto extends Component {
                                             <div className="ln_solid"/>
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
-                                                <Link to="/produtos">
-                                                        <button id="send" type="submit" className="btn btn-primary">
-                                                                Editar
-                                                        </button>
-                                                    </Link>
+                                                <button id="send" type="submit">
+                                                        <a
+                                                            href={`${this.state.url}/cadastrarproduto`}
+                                                        >
+                                                            Editar 
+                                                        </a>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>

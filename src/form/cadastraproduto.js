@@ -14,7 +14,8 @@ export default class formValidation extends Component {
         let descricao=event.target.descricao.value
         let imagem=event.target.imagem.value
         let valorUnitario=event.target.vlProduto.value
-        let codigo=event.target.Categoria.value
+        let isAtivo=event.target.isAtivo.value
+        let idCategoria=event.target.Categoria.value
 
         let urlCadastro = window.location.href.toString();
         let url = urlCadastro.substring(0, 21)
@@ -26,8 +27,9 @@ export default class formValidation extends Component {
             imagem:imagem,
             valorUnitario:valorUnitario,
             categoria:{
-                idCategoria:codigo
-            }
+                idCategoria:idCategoria
+            },
+            isAtivo:isAtivo
         }).then(res => console.log(res.data)).catch(err => console.log(err.data))
         
     }
@@ -140,6 +142,22 @@ export default class formValidation extends Component {
                                                 </select>
                                                 </div>
                                             </div>
+                                             <div className="item form-group mb-3">
+                                                <label
+                                                    className="col-form-label col-md-3 col-sm-3 label-align"
+                                                    htmlFor="website">Disponibilidade
+                                                    <span className="required">*</span>
+                                                </label>
+                                                <div>
+                                                <input type="radio" name="disponibilidade" value="disponivel">
+                                                    Disponível
+                                                </input>
+                                                <input type="radio" name="disponibilidade" value="indisponivel">
+                                                    Indisponível
+                                                </input>
+                                                </div>
+                                            </div>
+
                                             <div className="ln_solid"/>
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
