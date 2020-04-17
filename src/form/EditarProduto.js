@@ -78,7 +78,9 @@ export default class EditarProduto extends Component {
             },
             isAtivo:isAtivo
             
-        }).then(res => console.log(res.data)).catch(err => console.log(err.data))
+        }).then(res => {console.log(res.data)
+        window.location.href = this.state.url+"/produtos"})
+        .catch(err => console.log(err.data))
         
     }
 
@@ -234,8 +236,8 @@ export default class EditarProduto extends Component {
                                             <div className="ln_solid"/>
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
-                                                <button id="send" type="submit" class="btn btn-primary">
-                                                        {/* <a href={`${this.state.url}/cadastrarproduto`} > */}
+                                                <button id="send" class="btn btn-primary">
+                                                        {/* <a href={this.state.url + "/produtos"}> */}
                                                             Editar 
                                                         {/* </a> */}
                                                     </button>

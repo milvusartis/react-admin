@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import api from "../service/api";
 import '../plugins/style.css'
-import { Link } from 'react-router-dom'
 import "./botao.css";
 
 export default class formValidation extends Component {
@@ -31,7 +30,15 @@ export default class formValidation extends Component {
                 idCategoria:idCategoria
             },
             isAtivo:isAtivo
-        }).then(res => console.log(res.data)).catch(err => console.log(err.data))
+        })
+        .then(res => {
+            console.log(res.data)
+            window.location.href = this.state.url+"/produtos"
+        })
+        .catch(err => {
+            console.log(err.data)
+            alert("Preencha todos os dados")
+        })
         
     }
     render() {
@@ -167,11 +174,9 @@ export default class formValidation extends Component {
                                             <div className="ln_solid"/>
                                             <div className="form-group ">
                                                 <div className="col-md-6 offset-md-3 mt-3">
-                                                    {/* <Link to="/produtos"> */}
-                                                        <button id="send" type="submit" className="btn btn-primary">
+                                                        <button id="send" className="btn btn-primary">
                                                                 Cadastrar
                                                         </button>
-                                                    {/* </Link> */}
                                                 </div>
                                             </div>
                                         </form>
